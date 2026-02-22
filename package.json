@@ -1,0 +1,66 @@
+{
+  "name": "sketchly",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint 'src/**/*.{ts,tsx,js,jsx}' --fix"
+  },
+  "dependencies": {
+    "konva": "^10.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "@vitejs/plugin-react": "^4.3.3",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "18.0.0",
+    "eslint-plugin-import": "^2.30.2",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "airbnb",
+      "airbnb-typescript",
+      "airbnb/hooks",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "project": "./tsconfig.json",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "rules": {
+      "react/jsx-filename-extension": [
+        1,
+        {
+          "extensions": [
+            ".tsx"
+          ]
+        }
+      ],
+      "import/extensions": [
+        "error",
+        "ignorePackages",
+        {
+          "ts": "never",
+          "tsx": "never",
+          "js": "never",
+          "jsx": "never"
+        }
+      ]
+    }
+  }
+}
