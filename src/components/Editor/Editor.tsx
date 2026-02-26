@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import { CanvasEngine } from 'lib/canvasEngine/CanvasEngine';
+import { CanvasEngine } from 'libs/canvas-engine/canvas-engine';
 
 export default function Editor() {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -8,7 +8,11 @@ export default function Editor() {
   useEffect(() => {
     if (!containerRef.current) return undefined;
 
-    new CanvasEngine(containerRef.current);
+    const canvasEngine = new CanvasEngine({
+      container: containerRef.current,
+      width: 800,
+      height: 600,
+    });
 
     return () => {
       console.log('Editor unmounted');
