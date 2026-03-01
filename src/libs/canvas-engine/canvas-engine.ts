@@ -2,6 +2,7 @@
 import Konva from 'konva';
 
 import { ObjectManager } from './object-manager';
+
 import { IObjectData} from './objects/types/object-data';
 
 export interface CanvasEngineConfig {
@@ -33,6 +34,10 @@ export class CanvasEngine {
     return this.objectManager.addObject(data);
   }
 
+  updateObject(id: string, data: Partial<IObjectData>) {
+    return this.objectManager.updateObject(id, data);
+  }
+
   removeObject(id: string) {
     return this.objectManager.removeObject(id);
   }
@@ -51,5 +56,9 @@ export class CanvasEngine {
 
   getLayer() {
     return this.layer;
+  }
+
+  destroy() {
+    this.stage.destroy();
   }
 }

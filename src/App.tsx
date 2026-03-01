@@ -1,8 +1,16 @@
-import Editor from "@components/Editor/Editor";
+import Editor from '@components/Editor/Editor';
+
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 
-function App() {
-  return <Editor />;
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* <Route path="/" element={<HomePage />} /> */}
+        <Route path="/canvases/:id" element={<Editor />} />
+        <Route path="*" element={<div>404 Not Found</div>} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
-
-export default App;

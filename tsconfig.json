@@ -17,7 +17,11 @@
     "baseUrl": "./src",
     "paths": {
       "@components/*": ["components/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@canvas/*": ["libs/canvas-engine/*"],
+      "@libs/*": ["libs/*"],
+      "@stores/*": ["stores/*"],
+      "@api/*": ["api/*"]
     }
   },
   "include": ["src"],

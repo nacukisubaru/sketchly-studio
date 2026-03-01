@@ -1,9 +1,9 @@
 import Konva from 'konva';
 
-import { objectRegistry } from './object-registry';
-
 import { BaseObject } from './objects/base-object';
-import { IObjectData} from './objects/types/object-data';
+import { IObjectData } from './objects/types/object-data';
+
+import { objectRegistry } from './object-registry';
 
 type KonvaObject = Konva.Node;
 
@@ -44,6 +44,7 @@ export class ObjectManager {
     if (!obj) return null;
     
     obj.update(data);
+
     this.layer.draw();
 
     return obj.instance;
@@ -57,6 +58,7 @@ export class ObjectManager {
     this.objects.delete(id);
     
     obj.destroy();
+    
     this.layer.draw();
 
     return true;

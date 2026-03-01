@@ -1,31 +1,15 @@
-import { useEffect, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 
-import { CanvasEngine } from 'libs/canvas-engine/canvas-engine';
+import Canvas from '@components/Canvas/Canvas';
 
 export default function Editor() {
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const { id } = useParams<{ id: string }>();
 
-  useEffect(() => {
-    if (!containerRef.current) return undefined;
+  if (!id) return <div>Canvas ID не указан</div>;
 
-    const canvasEngine = new CanvasEngine({
-      container: containerRef.current,
-      width: 800,
-      height: 600,
-    });
+  const canvasId = Number(id);
+  
+  if (isNaN(canvasId)) return <div>Некорректный Canvas ID</div>;
 
-    return () => {
-      console.log('Editor unmounted');
-    };
-  }, []);
-
-  return (
-    <div>
-      <h1>Editor</h1>
-      <div
-        ref={containerRef}
-        style={{ width: '800px', height: '600px', border: '1px solid #ccc' }}
-      />
-    </div>
-  );
+  return <Canvas canvasId={canvasId} />;
 }
