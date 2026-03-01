@@ -2,7 +2,7 @@ module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: ['./apps/editor/tsconfig.json', './packages/canvas-engine/tsconfig.json'],
+    project: ['./tsconfig.json'], // <- путь к твоему корневому tsconfig
     tsconfigRootDir: __dirname,
     ecmaVersion: 2020,
     sourceType: 'module',

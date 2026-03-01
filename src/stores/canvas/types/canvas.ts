@@ -1,5 +1,5 @@
-import { CanvasLayerData } from "@canvas/layers/types/layer-data";
-import { CanvasObjectData } from "@canvas/objects/types/object-data";
+import { CanvasLayerData } from '@canvas/layers/types/layer-data';
+import { CanvasObjectData } from '@canvas/objects/types/object-data';
 
 export type CanvasObject = CanvasObjectData;
 

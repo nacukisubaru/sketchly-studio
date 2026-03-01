@@ -14,11 +14,11 @@ export interface RequestResult<T = any> {
 const REQUEST_TIMEOUT = 10000;
 
 const api = axios.create({
-  baseURL: (window as any).SKETCHLY_API_URL,
+  baseURL: window.SKETCHLY_API_URL,
   timeout: REQUEST_TIMEOUT,
 });
 
-const pendingRequests = new Map<string, { cancel: () => void; promise: Promise<any> }>();
+const pendingRequests = new Map<string, { cancel:() => void; promise: Promise<any> }>();
 
 const createCancelableRequest = () => {
   const controller = new AbortController();
@@ -37,7 +37,7 @@ const createCancelableRequest = () => {
 export function request<T = any>(
   method: HttpMethod,
   url: string,
-  config: RequestConfig = {}
+  config: RequestConfig = {},
 ): RequestResult<T> {
   const { blockDuplicate = false, ...axiosOptions } = config;
 
@@ -50,8 +50,10 @@ export function request<T = any>(
 
   const { signal, cancel } = createCancelableRequest();
 
-  const promise = api({ method, url, signal, ...axiosOptions }).then(
-    (res: AxiosResponse<T>) => res.data
+  const promise = api({
+    method, url, signal, ...axiosOptions,
+  }).then(
+    (res: AxiosResponse<T>) => res.data,
   );
 
   if (requestKey) {

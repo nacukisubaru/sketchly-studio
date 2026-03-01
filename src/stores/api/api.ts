@@ -29,7 +29,7 @@ async function runRequestFn<T = any>(
   method: HttpMethod,
   url: string,
   config: RequestConfig = {},
-  set: (partial: Partial<ApiStoreState> | ((state: ApiStoreState) => Partial<ApiStoreState>)) => void
+  set: (partial: Partial<ApiStoreState> | ((state: ApiStoreState) => Partial<ApiStoreState>)) => void,
 ): Promise<T> {
   const key = `${method}_${url}`;
 
@@ -71,7 +71,5 @@ async function runRequestFn<T = any>(
 export const useApiStore = create<ApiStoreState>((set, get) => ({
   requests: {},
   runRequest: (method, url, config) => runRequestFn(method, url, config, set),
-  getRequestData: (key: string) => {
-    return get().requests[key] ?? { loading: false, error: null, data: null };
-  },
+  getRequestData: (key: string) => get().requests[key] ?? { loading: false, error: null, data: null },
 }));

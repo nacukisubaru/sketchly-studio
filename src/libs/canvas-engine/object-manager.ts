@@ -33,7 +33,7 @@ export class ObjectManager {
 
   updateObject(id: string, data: Partial<CanvasObjectData>): KonvaObject | null {
     const obj = this.objects.get(id);
-    
+
     if (!obj) return null;
 
     obj.update(data);
@@ -48,7 +48,7 @@ export class ObjectManager {
     if (!obj) return false;
 
     obj.destroy();
-    
+
     this.objects.delete(id);
 
     obj.instance.getLayer()?.batchDraw();
@@ -62,7 +62,7 @@ export class ObjectManager {
     if (!obj) return false;
 
     obj.instance.moveTo(targetLayer.instance);
-    
+
     obj.layerId = targetLayer.id;
 
     targetLayer.instance.batchDraw();

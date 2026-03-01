@@ -1,4 +1,4 @@
-import { ObjectType } from "@canvas/object-registry";
+import { ObjectType } from '@canvas/object-registry';
 
 export interface IObjectData {
   type: ObjectType;

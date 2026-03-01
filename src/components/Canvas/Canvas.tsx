@@ -2,16 +2,15 @@ import { useEffect, useRef } from 'react';
 
 import { CanvasEngine } from '@canvas/canvas-engine';
 
-import { useEditorStore } from '@stores/editor/editor';
-import { CanvasObject } from '@stores/editor/types/editor';
-
+import { CanvasObject } from '@stores/canvas/types/canvas';
+import { useCanvasStore } from '@stores/canvas/canvas';
 
 export default function Canvas({ canvasId }: { canvasId: number }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const canvas = useEditorStore((state) => state.canvas);
-  const loadCanvas = useEditorStore((state) => state.loadCanvas);
-  const clearCanvas = useEditorStore((state) => state.clearCanvas);
+  const canvas = useCanvasStore((state) => state.canvas);
+  const loadCanvas = useCanvasStore((state) => state.loadCanvas);
+  const clearCanvas = useCanvasStore((state) => state.clearCanvas);
 
   useEffect(() => {
     if (!containerRef.current || !canvas) return;
@@ -22,7 +21,7 @@ export default function Canvas({ canvasId }: { canvasId: number }) {
       height: canvas?.height,
     });
 
-    canvas?.layers.forEach(layer => {
+    canvas?.layers.forEach((layer) => {
       const newLayer = engine.addLayer(layer);
 
       layer.objects.forEach((obj: CanvasObject) => engine.addObject(newLayer, { ...obj, layerId: layer.id }));

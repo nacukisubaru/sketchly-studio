@@ -6,6 +6,7 @@ import { CanvasLayerData } from './types/layer-data';
 
 export class LayerManager {
   private layers = new Map<string, Layer>();
+
   private stage: Konva.Stage;
 
   constructor(stage: Konva.Stage) {
@@ -42,7 +43,7 @@ export class LayerManager {
     if (!layer) return false;
 
     layer.setVisibility(hidden);
-    
+
     return true;
   }
 
@@ -52,7 +53,7 @@ export class LayerManager {
     if (!layer) return false;
 
     layer.setLocked(locked);
-    
+
     return true;
   }
 
@@ -62,7 +63,7 @@ export class LayerManager {
     if (!layer) return false;
 
     layer.setOrder(order);
-    
+
     return true;
   }
 
@@ -71,7 +72,7 @@ export class LayerManager {
   }
 
   clear() {
-    this.layers.forEach(layer => layer.destroy());
+    this.layers.forEach((layer) => layer.destroy());
 
     this.layers.clear();
   }

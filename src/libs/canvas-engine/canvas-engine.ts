@@ -16,7 +16,9 @@ export interface CanvasEngineConfig {
 
 export class CanvasEngine {
   private stage: Konva.Stage;
+
   readonly layerManager: LayerManager;
+
   readonly objectManager: ObjectManager;
 
   constructor(config: CanvasEngineConfig) {

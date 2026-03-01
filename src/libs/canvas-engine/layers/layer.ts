@@ -4,8 +4,11 @@ import { CanvasLayerData } from './types/layer-data';
 
 export class Layer {
   id: string;
+
   order: number;
+
   isHidden: boolean;
+
   isLocked: boolean;
 
   instance: Konva.Layer;

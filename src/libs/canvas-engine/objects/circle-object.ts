@@ -12,7 +12,7 @@ export class CircleObject extends BaseObject<Konva.Circle> {
       fill: data.style?.fill ?? '#999',
       draggable: true,
     });
-    
+
     return new CircleObject(data.id, data.layerId, inst);
   }
 
