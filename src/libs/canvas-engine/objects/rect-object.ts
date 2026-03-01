@@ -7,9 +7,10 @@ export class RectObject extends BaseObject<Konva.Rect> {
     const inst = new Konva.Rect({
       ...data,
       fill: data.style?.fill ?? '#999',
+      draggable: true,
     });
 
-    return new RectObject(data.id as string, inst);
+    return new RectObject(data.id, data.layerId, inst);
   }
 
   override update(data: Record<string, any>) {

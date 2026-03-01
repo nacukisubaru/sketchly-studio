@@ -1,9 +1,12 @@
-// engine/CanvasEngine.ts
 import Konva from 'konva';
 
 import { ObjectManager } from './object-manager';
 
-import { IObjectData} from './objects/types/object-data';
+import { CanvasObjectData } from './objects/types/object-data';
+
+import { CanvasLayerData } from './layers/types/layer-data';
+import { Layer } from './layers/layer';
+import { LayerManager } from './layers/layer-manager';
 
 export interface CanvasEngineConfig {
   container: string | HTMLDivElement;
@@ -13,8 +16,8 @@ export interface CanvasEngineConfig {
 
 export class CanvasEngine {
   private stage: Konva.Stage;
-  private layer: Konva.Layer;
-  private objectManager: ObjectManager;
+  readonly layerManager: LayerManager;
+  readonly objectManager: ObjectManager;
 
   constructor(config: CanvasEngineConfig) {
     this.stage = new Konva.Stage({
@@ -23,42 +26,40 @@ export class CanvasEngine {
       height: config.height,
     });
 
-    this.layer = new Konva.Layer();
-
-    this.stage.add(this.layer);
-
-    this.objectManager = new ObjectManager(this.layer);
+    this.layerManager = new LayerManager(this.stage);
+    this.objectManager = new ObjectManager();
   }
 
-  addObject(data: IObjectData) {
-    return this.objectManager.addObject(data);
+  addLayer(data: CanvasLayerData): Layer {
+    return this.layerManager.addLayer(data);
   }
 
-  updateObject(id: string, data: Partial<IObjectData>) {
+  removeLayer(layerId: string): boolean {
+    return this.layerManager.removeLayer(layerId);
+  }
+
+  addObject(layer: Layer, data: CanvasObjectData) {
+    return this.objectManager.addObject(layer, data);
+  }
+
+  updateObject(id: string, data: Partial<CanvasObjectData>) {
     return this.objectManager.updateObject(id, data);
+  }
+
+  moveObjectToLayer(id: string, targetLayer: Layer) {
+    return this.objectManager.moveObjectToLayer(id, targetLayer);
   }
 
   removeObject(id: string) {
     return this.objectManager.removeObject(id);
   }
 
-  findObject(id: string) {
-    return this.objectManager.findObject(id);
-  }
-
-  getAllObjects() {
-    return this.objectManager.getAllObjects();
+  destroy() {
+    this.layerManager.clear();
+    this.stage.destroy();
   }
 
   getStage() {
     return this.stage;
-  }
-
-  getLayer() {
-    return this.layer;
-  }
-
-  destroy() {
-    this.stage.destroy();
   }
 }

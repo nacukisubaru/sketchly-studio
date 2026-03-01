@@ -1,16 +1,17 @@
-import { useApiStore } from '@stores/api/api';
 import { create, StateCreator } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { devtools } from 'zustand/middleware';
 
-export type CanvasObject = { id: number; [key: string]: any };
-export type CanvasLayer = { id: number; objects: CanvasObject[] };
+import { useApiStore } from '@stores/api/api';
+
+import { CanvasLayer, CanvasObject } from './types/editor';
+
 export type Canvas = { 
   id: number; 
   name: string; 
   width: number; 
   height: number; 
-  layers: CanvasLayer[]; 
+  layers: CanvasLayer[];
   createdAt: string; 
   updatedAt: string 
 };
@@ -23,12 +24,12 @@ export type EditorState = {
   updateCanvas: (id: number, updatedObject: Partial<CanvasObject>) => void;
 };
 
-const editorStateCreator: StateCreator<EditorState> = (set, get) => ({
+const editorStateCreator: StateCreator<EditorState> = (set) => ({
   canvas: null,
 
   loadCanvas: async (id: number) => {
     const api = useApiStore.getState();
-    
+
     const data = await api.runRequest<Canvas>('get', `/canvases/${id}`);
 
     set({ canvas: data });

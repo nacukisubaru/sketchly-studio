@@ -1,23 +1,10 @@
-export interface CanvasObject {
-  id: string
-  type: string
-  x: number
-  y: number
-  width: number
-  height: number
-  rotation: number
-  opacity: number
-  path?: string
-  style?: Record<string, any>
-}
+import { CanvasLayerData } from "@canvas/layers/types/layer-data";
+import { CanvasObjectData } from "@canvas/objects/types/object-data";
 
-export interface Layer {
-  id: string
-  name: string
-  order: number
-  isHidden: boolean
-  isLocked: boolean
-  objects: CanvasObject[]
+export type CanvasObject = CanvasObjectData;
+
+export interface CanvasLayer extends CanvasLayerData {
+  objects: CanvasObject[];
 }
 
 export interface Canvas {
@@ -25,7 +12,7 @@ export interface Canvas {
   name: string
   width: number
   height: number
-  layers: Layer[]
+  layers: CanvasLayer[]
   createdAt: string
   updatedAt: string
 }
