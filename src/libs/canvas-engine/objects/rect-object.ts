@@ -2,7 +2,7 @@ import Konva from 'konva';
 
 import { BaseObject } from './base-object';
 
-export class RectObject extends BaseObject<Konva.Rect> {
+export default class RectObject extends BaseObject<Konva.Rect> {
   static create(data: Record<string, any>) {
     const inst = new Konva.Rect({
       ...data,

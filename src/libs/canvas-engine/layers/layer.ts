@@ -2,7 +2,7 @@ import Konva from 'konva';
 
 import { CanvasLayerData } from './types/layer-data';
 
-export class Layer {
+export default class Layer {
   id: string;
 
   order: number;

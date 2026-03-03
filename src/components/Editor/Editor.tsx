@@ -9,7 +9,7 @@ export default function Editor() {
 
   const canvasId = Number(id);
 
-  if (isNaN(canvasId)) return <div>Некорректный Canvas ID</div>;
+  if (Number.isNaN(canvasId)) return <div>Некорректный Canvas ID</div>;
 
   return <Canvas canvasId={canvasId} />;
 }

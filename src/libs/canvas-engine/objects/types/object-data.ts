@@ -1,6 +1,6 @@
 import { ObjectType } from '@canvas/object-registry';
 
-export interface IObjectData {
+export interface CanvasObjectData {
   type: ObjectType;
   x: number;
   y: number;

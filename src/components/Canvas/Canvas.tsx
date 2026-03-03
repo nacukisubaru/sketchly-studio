@@ -13,18 +13,20 @@ export default function Canvas({ canvasId }: { canvasId: number }) {
   const clearCanvas = useCanvasStore((state) => state.clearCanvas);
 
   useEffect(() => {
-    if (!containerRef.current || !canvas) return;
+    if (!containerRef.current || !canvas) return undefined;
 
     const engine = new CanvasEngine({
       container: containerRef.current,
-      width: canvas?.width,
-      height: canvas?.height,
+      width: canvas.width,
+      height: canvas.height,
     });
 
-    canvas?.layers.forEach((layer) => {
+    canvas.layers.forEach((layer) => {
       const newLayer = engine.addLayer(layer);
 
-      layer.objects.forEach((obj: CanvasObject) => engine.addObject(newLayer, { ...obj, layerId: layer.id }));
+      layer.objects.forEach((obj: CanvasObject) => engine.addObject(newLayer, {
+        ...obj, layerId: layer.id,
+      }));
     });
 
     return () => {
@@ -45,7 +47,7 @@ export default function Canvas({ canvasId }: { canvasId: number }) {
       <h1>Editor</h1>
       <div
         ref={containerRef}
-        style={{ width: `${canvas?.width}px`, height: `${canvas?.height}px`, border: '1px solid #ccc' }}
+        style={{ width: '800px', height: '800px', border: '1px solid #ccc' }}
       />
     </div>
   );

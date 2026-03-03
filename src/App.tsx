@@ -1,7 +1,7 @@
 import Editor from '@components/Editor/Editor';
 
 import {
-  BrowserRouter, Routes, Route, Navigate,
+  BrowserRouter, Routes, Route,
 } from 'react-router-dom';
 
 export default function App() {

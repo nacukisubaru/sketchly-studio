@@ -42,7 +42,8 @@ const canvasStoreCreator: StateCreator<CanvasStoreState> = (set) => ({
           ...state.canvas,
           layers: state.canvas.layers.map((layer) => ({
             ...layer,
-            objects: layer.objects.map((obj) => (obj.id === id ? { ...obj, ...updatedObject } : obj)),
+            objects: layer.objects.map((obj) => (obj.id === id
+              ? { ...obj, ...updatedObject } : obj)),
           })),
         },
       };

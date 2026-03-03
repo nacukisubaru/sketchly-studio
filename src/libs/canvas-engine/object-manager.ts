@@ -9,7 +9,7 @@ import { Layer } from './layers/layer';
 
 type KonvaObject = Konva.Node;
 
-export class ObjectManager {
+export default class ObjectManager {
   private objects = new Map<string, BaseObject<KonvaObject>>();
 
   addObject(layer: Layer, data: CanvasObjectData): KonvaObject | null {

@@ -4,7 +4,7 @@ import { Layer } from './layer';
 
 import { CanvasLayerData } from './types/layer-data';
 
-export class LayerManager {
+export default class LayerManager {
   private layers = new Map<string, Layer>();
 
   private stage: Konva.Stage;

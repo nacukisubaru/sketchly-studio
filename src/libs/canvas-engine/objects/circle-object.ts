@@ -2,7 +2,7 @@ import Konva from 'konva';
 
 import { BaseObject } from './base-object';
 
-export class CircleObject extends BaseObject<Konva.Circle> {
+export default class CircleObject extends BaseObject<Konva.Circle> {
   static create(data: Record<string, any>) {
     const radius = data.radius ?? Math.min(data.width ?? 100, data.height ?? 100) / 2;
 

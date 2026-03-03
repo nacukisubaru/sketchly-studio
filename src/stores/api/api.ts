@@ -18,6 +18,17 @@ type ApiStoreState = {
   getRequestData: <T = any>(key: string) => ApiStatus<T>;
 };
 
+type RunRequestParams = {
+  method: HttpMethod;
+  url: string;
+  set: (
+    partial:
+    | Partial<ApiStoreState>
+    | ((state: ApiStoreState) => Partial<ApiStoreState>)
+  ) => void;
+  config?: RequestConfig;
+};
+
 /**
  * Universal HTTP request via store
  * @param method HTTP method
@@ -25,12 +36,12 @@ type ApiStoreState = {
  * @param config Axios configuration + optional blockDuplicate flag
  * @param set Zustand set function
  */
-async function runRequestFn<T = any>(
-  method: HttpMethod,
-  url: string,
-  config: RequestConfig = {},
-  set: (partial: Partial<ApiStoreState> | ((state: ApiStoreState) => Partial<ApiStoreState>)) => void,
-): Promise<T> {
+async function runRequestFn<T = any>({
+  method,
+  url,
+  set,
+  config = {},
+}: RunRequestParams): Promise<T> {
   const key = `${method}_${url}`;
 
   set((state) => ({
@@ -68,8 +79,12 @@ async function runRequestFn<T = any>(
   }
 }
 
+/* eslint-disable import/prefer-default-export */
 export const useApiStore = create<ApiStoreState>((set, get) => ({
   requests: {},
-  runRequest: (method, url, config) => runRequestFn(method, url, config, set),
-  getRequestData: (key: string) => get().requests[key] ?? { loading: false, error: null, data: null },
+  runRequest: (method, url, config) => runRequestFn({
+    method, url, config, set,
+  }),
+  getRequestData: (key: string) => get().requests[key]
+  ?? { loading: false, error: null, data: null },
 }));
