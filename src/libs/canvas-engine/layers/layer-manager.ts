@@ -1,6 +1,6 @@
 import Konva from 'konva';
 
-import { Layer } from './layer';
+import Layer from './layer';
 
 import { CanvasLayerData } from './types/layer-data';
 

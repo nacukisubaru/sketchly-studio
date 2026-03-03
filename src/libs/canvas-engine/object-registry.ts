@@ -1,5 +1,5 @@
-import { CircleObject } from './objects/circle-object';
-import { RectObject } from './objects/rect-object';
+import CircleObject from './objects/circle-object';
+import RectObject from './objects/rect-object';
 
 export type ObjectType = keyof typeof objectRegistry;
 

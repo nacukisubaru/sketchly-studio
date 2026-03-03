@@ -1,12 +1,12 @@
 import Konva from 'konva';
 
-import { ObjectManager } from './object-manager';
+import ObjectManager from './object-manager';
 
 import { CanvasObjectData } from './objects/types/object-data';
 
 import { CanvasLayerData } from './layers/types/layer-data';
-import { Layer } from './layers/layer';
-import { LayerManager } from './layers/layer-manager';
+import Layer from './layers/layer';
+import LayerManager from './layers/layer-manager';
 
 export interface CanvasEngineConfig {
   container: string | HTMLDivElement;

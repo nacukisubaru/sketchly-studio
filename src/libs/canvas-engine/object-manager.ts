@@ -5,7 +5,7 @@ import { CanvasObjectData } from './objects/types/object-data';
 
 import { objectRegistry } from './object-registry';
 
-import { Layer } from './layers/layer';
+import Layer from './layers/layer';
 
 type KonvaObject = Konva.Node;
 

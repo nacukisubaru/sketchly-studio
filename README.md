@@ -7,3 +7,7 @@ Run:
 pnpm install
 pnpm --filter editor dev
 ```
+
+Запуск
+
+env $(cat .env) npm run dev

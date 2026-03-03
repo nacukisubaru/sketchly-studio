@@ -3,8 +3,25 @@ import react from '@vitejs/plugin-react';
 import { defineConfig, loadEnv } from 'vite';
 import { createHtmlPlugin } from 'vite-plugin-html';
 
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '');
+interface Env {
+  SKETCHLY_API_URL: string;
+}
+
+interface ConfigEnv {
+  mode: string;
+  command: 'build' | 'serve';
+  ssrBuild: boolean;
+}
+
+export default defineConfig((configEnv: ConfigEnv) => {
+  const { mode } = configEnv;
+
+  const rawEnv = loadEnv(mode, process.cwd(), '') as Record<string, string>;
+
+  const env: Env = {
+    SKETCHLY_API_URL: rawEnv.SKETCHLY_API_URL || '',
+  };
+
   const isProduction = mode === 'production';
 
   return {
