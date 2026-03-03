@@ -2,7 +2,7 @@ module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: ['./apps/editor/tsconfig.json', './packages/canvas-engine/tsconfig.json'],
+    project: './tsconfig.eslint.json',
     tsconfigRootDir: __dirname,
     ecmaVersion: 2020,
     sourceType: 'module',
@@ -15,22 +15,35 @@ module.exports = {
     node: true,
     es2021: true,
   },
-  plugins: ['@typescript-eslint', 'react', 'react-hooks'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'import', 'jsx-a11y'],
   extends: [
     'airbnb',
     'airbnb-typescript',
+    'airbnb/hooks',
   ],
   settings: {
     react: {
       version: 'detect',
     },
     'import/resolver': {
-      typescript: {},
+      typescript: {
+        alwaysTryTypes: true,
+        project: ['./tsconfig.json'],
+      },
     },
   },
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
-    'import/extensions': ['error', 'ignorePackages', { ts: 'never', tsx: 'never', js: 'never', jsx: 'never' }],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        ts: 'never',
+        tsx: 'never',
+        js: 'never',
+        jsx: 'never',
+      },
+    ],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
