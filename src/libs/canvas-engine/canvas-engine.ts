@@ -40,7 +40,11 @@ export class CanvasEngine {
     return this.layerManager.removeLayer(layerId);
   }
 
-  addObject(layer: Layer, data: CanvasObjectData) {
+  addObject(layerId: string, data: CanvasObjectData) {
+    const layer = this.layerManager.getLayer(layerId);
+
+    if (!layer) return null;
+
     return this.objectManager.addObject(layer, data);
   }
 

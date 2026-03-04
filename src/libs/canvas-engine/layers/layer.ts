@@ -29,6 +29,12 @@ export default class Layer {
     this.instance.zIndex(this.order);
   }
 
+  update(data: Partial<CanvasLayerData>) {
+    if (data.order !== undefined) this.setOrder(data.order);
+    if (data.isHidden !== undefined) this.setVisibility(data.isHidden);
+    if (data.isLocked !== undefined) this.setLocked(data.isLocked);
+  }
+
   setVisibility(hidden: boolean) {
     this.isHidden = hidden;
     this.instance.visible(!hidden);

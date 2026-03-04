@@ -3,6 +3,8 @@ import { CanvasObjectData } from '@canvas/objects/types/object-data';
 
 export type CanvasObject = CanvasObjectData;
 
+export type CanvasObjectChangeType = 'add' | 'update' | 'remove';
+
 export interface CanvasLayer extends CanvasLayerData {
   objects: CanvasObject[];
 }
