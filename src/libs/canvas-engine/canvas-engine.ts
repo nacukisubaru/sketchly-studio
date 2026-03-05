@@ -1,12 +1,13 @@
 import Konva from 'konva';
 
-import ObjectManager from './object-manager';
+import ObjectManager from './managers/object-manager';
 
 import { CanvasObjectData } from './objects/types/object-data';
 
 import { CanvasLayerData } from './layers/types/layer-data';
 import Layer from './layers/layer';
-import LayerManager from './layers/layer-manager';
+import LayerManager from './managers/layer-manager';
+import EventManager from './events/event-manager';
 
 export interface CanvasEngineConfig {
   container: string | HTMLDivElement;
@@ -21,6 +22,8 @@ export class CanvasEngine {
 
   readonly objectManager: ObjectManager;
 
+  readonly events: EventManager;
+
   constructor(config: CanvasEngineConfig) {
     this.stage = new Konva.Stage({
       container: config.container,
@@ -28,8 +31,10 @@ export class CanvasEngine {
       height: config.height,
     });
 
+    this.events = new EventManager();
+
     this.layerManager = new LayerManager(this.stage);
-    this.objectManager = new ObjectManager();
+    this.objectManager = new ObjectManager(this.events);
   }
 
   addLayer(data: CanvasLayerData): Layer {

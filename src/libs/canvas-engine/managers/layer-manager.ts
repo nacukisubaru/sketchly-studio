@@ -1,8 +1,7 @@
 import Konva from 'konva';
 
-import Layer from './layer';
-
-import { CanvasLayerData } from './types/layer-data';
+import Layer from '../layers/layer';
+import { CanvasLayerData } from '../layers/types/layer-data';
 
 export default class LayerManager {
   private layers = new Map<string, Layer>();

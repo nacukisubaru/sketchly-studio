@@ -8,6 +8,7 @@ import { CanvasObject, CanvasObjectChangeType } from '@stores/canvas/types/canva
 import { useCanvasStore } from '@stores/canvas/canvas';
 
 import useCurrentValue from '@components/hooks';
+import isEqualObject from '@utils/editor/common';
 
 export default function Canvas({ canvasId }: { canvasId: number }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -33,12 +34,16 @@ export default function Canvas({ canvasId }: { canvasId: number }) {
   ) => (obj: CanvasObject, type: CanvasObjectChangeType) => {
     if (!engine) return;
 
+    const engineObj = engine.objectManager.getSerializedObject(obj.id as string);
+
     switch (type) {
       case 'add':
         engine.addObject(currentLayerIdRef.current, obj);
 
         break;
       case 'update':
+        if (isEqualObject(engineObj, obj)) return;
+
         engine.updateObject(obj.id as string, obj);
 
         break;
@@ -61,18 +66,28 @@ export default function Canvas({ canvasId }: { canvasId: number }) {
     });
 
     const unsubscribeLayers = subscribeAllLayers((layer) => {
-      const newlayer = engine.addLayer(layer);
-      console.log({ newlayer });
+      engine.addLayer(layer);
     });
     const unsubscribeObjects = subscribeAllObjects(applyObjectChange(engine));
+    const unsubscribeDragEnd = engine.events.on('object:dragend', (obj) => {
+      updateObject(obj.id, obj);
+    });
 
     return () => {
       engine.destroy();
 
       unsubscribeObjects();
       unsubscribeLayers();
+      unsubscribeDragEnd();
     };
-  }, [canvasWidth, canvasHeight, applyObjectChange, subscribeAllObjects, subscribeAllLayers]);
+  }, [
+    canvasWidth,
+    canvasHeight,
+    applyObjectChange,
+    updateObject,
+    subscribeAllObjects,
+    subscribeAllLayers,
+  ]);
 
   useEffect(() => {
     loadCanvas(canvasId);

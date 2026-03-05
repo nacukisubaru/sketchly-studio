@@ -10,8 +10,8 @@ import {
 export type CanvasStoreState = {
   canvas: Canvas | null;
   loadCanvas: (id: number) => Promise<void>;
-  addObject: (layerId: number, object: CanvasObject) => void;
-  updateObject: (id: number, updatedObject: Partial<CanvasObject>) => void;
+  addObject: (layerId: string, object: CanvasObject) => void;
+  updateObject: (id: string, updatedObject: Partial<CanvasObject>) => void;
   removeObject: (id: string) => void;
   setCanvas: (canvas: Canvas) => void;
   clearCanvas: () => void;
@@ -93,6 +93,7 @@ CanvasStoreState,
     const layersMap = new Map<string, CanvasLayer>();
 
     const initialLayers = get().canvas?.layers ?? [];
+
     initialLayers.forEach((layer) => {
       layersMap.set(layer.id, layer);
       callback(layer);
@@ -106,6 +107,7 @@ CanvasStoreState,
         layers.forEach((layer) => {
           if (!layersMap.has(layer.id)) {
             layersMap.set(layer.id, layer);
+
             callback(layer);
           }
         });
@@ -119,9 +121,11 @@ CanvasStoreState,
     const objectsMap = new Map<string, CanvasObject>();
 
     const initialLayers = get().canvas?.layers ?? [];
+
     initialLayers.forEach((layer) => {
       layer.objects.forEach((obj) => {
         objectsMap.set(obj.id as string, obj);
+
         callback(obj, 'add');
       });
     });
@@ -154,7 +158,6 @@ CanvasStoreState,
 
         objectsMap.forEach((obj, id) => {
           if (!currentObjects.has(id)) {
-            console.log('Object removed', { id, obj });
             objectsMap.delete(id);
 
             callback(obj, 'remove');
